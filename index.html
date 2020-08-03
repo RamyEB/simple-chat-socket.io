@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Socket chat</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>   
+    </head>
+    <body>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+
+            var send = () => {
+                var text = document.getElementById("m").value
+                socket.emit('chat message', text)
+            }
+
+            var receive = function (msg){
+                var li = document.createElement('li');
+                li.innerText=msg
+                document.getElementById('messages').appendChild(li)
+            }
+
+            socket.on('chat message', receive)
+
+        </script>
+        <div class="container" >
+
+
+            <div style="width:max-content;margin: auto;">
+
+                <ul id="messages" class="ui" style="width:700px;height:300px;border:gainsboro 1px solid;border-radius: 5px;">
+                
+                </ul>
+
+                <div class="ui action input" style="width: 700px">
+                    <input type="text" id="m" placeholder="Message...">
+                    <button class="ui button" onclick="send()">Send</button>
+                  </div>
+                
+              </div>
+
+
+
+        </div>
+       
+    </body>
+</html>
